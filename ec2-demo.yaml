@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: "2010-09-09"
+description:  part 1 - build a webapp stack with cloudformation
+Resources: 
+ webappinstance:
+    Type: "AWS::EC2::Instance"
+    Properties: 
+      ImageID: ami
+        instancetype: t2.micro
+        keyname: 11am-batch-pass
+          securitygroupIds:
+          - !Ref webappsecuritygroup
+    webappsecuritygroup:
+     type: AWS::EC2::securitygroup
+     properties:
+        GroupName: !Join [ '-' [webapp-security-group, dev] ]    
+        groupdescription: 'Allow Http/Https and ssh inbound and outbond traffic'
+        securitygroupIngress:
+            - ipProtocol: tcp 
+            fromport: 80
+            toport: 80
+            cidrIp: 0.0.0.0/0
+            -IpProtocol: tcp
+            fromport: 22
+            toport: 22
+            cidrIp: 0.0.0.0/0
+      
+  
